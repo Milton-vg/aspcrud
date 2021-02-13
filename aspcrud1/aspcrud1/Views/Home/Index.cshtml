@@ -6,11 +6,11 @@
     <!-- <div class="row"> -->
 
     <div class="row">
-        <h1>Mi primer CRUD</h1>
+        <h1 class="title is-1">Mi primer CRUD</h1>
         <hr>
     </div>
     <div class="row" style="margin-bottom: 20px">
-        <button class="btn btn-primary col-xs-4" id="btn_new">NUEVA PERSONA</button>
+        <button class="btn btn-primary col-xs-4" id="btn_new" onclick="$('#addUser').addClass('is-active');">NUEVA PERSONA</button>
         <div class="col-xs-4 form-group">
             <select name="" id="select_status" class="form-control">
                 <option value="2">TODOS</option>
@@ -41,4 +41,57 @@
 
     </div>
     <!-- </div> -->
+</div>
+
+<!--modal-->
+<div class="modal" id="addUser">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">NUEVA PERSONA</p>
+            <button class="delete" aria-label="close" onclick="$('#addUser').removeClass('is-active');"></button>
+        </header>
+        <section class="modal-card-body">
+            <form>
+                <!--form-->
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="Nombre">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Apellido Paterno</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="ApellidoP">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Apellido Materno</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="ApellidoM">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Direccion</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="Direccion">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Telefono</label>
+                    <div class="control">
+                        <input class="input" type="number" required placeholder="" name="Telefono">
+                    </div>
+                </div>
+            </form>
+
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Guardar</button>
+
+            <button class="button" onclick="$('#addUser').removeClass('is-active');">Cancelar</button>
+        </footer>
+    </div>
 </div>
