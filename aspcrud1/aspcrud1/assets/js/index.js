@@ -66,7 +66,36 @@ function loadData(){
 }
 
 function detalles(id){
+	$.ajax({
+		url: SITE_URL + '/Home/DetallesPersona',
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
 
+			LoadingOn("Espere...");
+		},
+		error: function (error) {
+			//console.log(error);
+			MsgAlerta("Error!", error, 3000, "error");
+			LoadingOff();
+		},
+		success: function (data) {
+			//console.log(data);
+			LoadingOff();
+
+			if (data != "") {
+
+				$("#Nombre").val(data[0].Nombre);
+				$("#ApellidoP").val(data[0].ApellidoP);
+				$("#ApellidoM").val(data[0].ApellidoM);
+				$("#Direccion").val(data[0].Direccion);
+				$("#Telefono").val(data[0].Telefono);
+				
+				$('#addUser').addClass('is-active');
+			}
+		}
+	});
 }
 
 function eliminar(id){
@@ -76,6 +105,7 @@ function eliminar(id){
 function editar(id) {
 
 }
+
 
 $(document).on('change', '#select_status', function(e){
 	loadData();
@@ -138,3 +168,4 @@ $(document).on('keyup', '#txt_busqueda', function (e) {
 });
 
 // validaOnlyNumbers('txt_busqueda');
+

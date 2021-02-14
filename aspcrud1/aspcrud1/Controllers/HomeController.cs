@@ -39,5 +39,14 @@ namespace aspcrud1.Controllers
             var x = Persona.insertPersona(newPersona);
             return Json(x);
         }
+
+        public JsonResult DetallesPersona(string id)
+        {
+            mPersonas Persona = new mPersonas();
+
+            var x = Persona.obtenerPersonasBusqueda(id);
+            return Json(x);
+
+        }
     }
 }
