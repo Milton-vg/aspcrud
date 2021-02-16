@@ -107,6 +107,7 @@ function editar(id) {
 }
 
 
+
 $(document).on('change', '#select_status', function(e){
 	loadData();
 });

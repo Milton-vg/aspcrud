@@ -32,13 +32,13 @@ namespace aspcrud1.Models
             {
 
                 var a = miSqlClass.SqlConsulta("SELECT Id, CONCAT(Nombres, ' ',ApellidoP,' ',ApellidoM) Nombre, Telefono, Direccion, Estatus" +
-                            "  FROM Personas ", ref dtTemp);
+                            "  FROM Personas_Milton ", ref dtTemp);
             }
             else
             {
 
                 var a = miSqlClass.SqlConsulta("SELECT Id, CONCAT(Nombres, ' ',ApellidoP,' ',ApellidoM) Nombre, Telefono, Direccion, Estatus" +
-                            "  FROM Personas WHERE Estauts ='"+ Estatus +"'", ref dtTemp);
+                            "  FROM Personas_Milton WHERE Estauts ='"+ Estatus +"'", ref dtTemp);
             }
 
             List<mPersonas> miLista = new List<mPersonas>();
@@ -63,7 +63,7 @@ namespace aspcrud1.Models
             miSqlClass.conectar();
 
             var a = miSqlClass.SqlConsulta("SELECT Id, CONCAT(Nombres, ' ',ApellidoP,' ',ApellidoM) Nombre, Telefono, Direccion, Estatus" +
-                           "  FROM Personas" +
+                           "  FROM Personas_Milton" +
                            " WHERE Nombres LIKE '%" + Busqueda + "%'" +
                            " OR ApellidoP LIKE '%" + Busqueda + "%'" +
                            " OR ApellidoM LIKE '%" + Busqueda + "%'" , ref dtTemp);
