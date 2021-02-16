@@ -84,6 +84,16 @@ namespace aspcrud1.Models
             return miLista;
         }
 
+        public bool GuardarP(mPersonas newPersona)
+        {
+            miSqlClass.conectar();
+
+            miSqlClass.SqlConsulta("INSER INTO Personas_Milton (Nombres, ApellidoP, ApellidoM, Direccion, Telefono) VALUES ('" + newPersona.Nombre + "','" + newPersona.ApellidoP + "','" + newPersona.ApellidoM+
+                "','" + newPersona.Direccion + "','" + newPersona.Telefono + "')");
+
+            return true;
+        }
+
 
         public string insertPersona(mPersonas newPersona)
         {

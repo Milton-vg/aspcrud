@@ -50,7 +50,7 @@ function loadData(){
 							<i class="fa fa-trash" aria-hidden="true"></i>
 			   			</button>
 			   			<button class="btn btn-primary" onclick="detalles(`+ data[i].id + `)"  title="Ver Detalles" type="">Ver detalles
-               	    	</button></tr>`;
+               	    	</button>`;
 					}
 
 				}
@@ -93,9 +93,13 @@ function detalles(id){
 				$("#Telefono").val(data[0].Telefono);
 				
 				$('#addUser').addClass('is-active');
+				
 			}
 		}
+
 	});
+
+	
 }
 
 function eliminar(id){
@@ -106,7 +110,48 @@ function editar(id) {
 
 }
 
+function guardarp() {
 
+	let dato = {};
+
+	dato.Nombre = $("#Nombre").val();
+	dato.ApellidoP = $("#ApellidoP").val();
+	dato.ApellidoM = $("#ApellidoM").val();
+	dato.Direccion = $("#Direccion").val();
+	dato.Telefono = $("#Telefono").val();
+
+	NPersona(dato);
+			
+}
+
+function NPersona(dato) {
+	$.ajax({
+		url: SITE_URL + '/Home/GuardarPersona',
+		type: 'POST',
+		contentType: "application/x-www-form-urlencoded",
+		data: dato,
+		dataType: 'JSON',
+		beforeSend: function () {
+
+			LoadingOn("Espere...");
+		},
+		success: function (data) {
+			LoadingOff();
+
+			if (data) {
+				MsgAlerta("Guardado");
+				$('#addUser').removeClass('is-active');
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL INSERTAR REGISTRO");
+			}
+		}
+	});
+}
+
+function limpiarFormulario() {
+	document.getElementById("miForm").reset();
+}
 
 $(document).on('change', '#select_status', function(e){
 	loadData();
