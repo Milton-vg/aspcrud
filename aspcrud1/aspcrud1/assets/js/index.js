@@ -50,6 +50,8 @@ function loadData(){
 							<i class="fa fa-trash" aria-hidden="true"></i>
 			   			</button>
 			   			<button class="btn btn-primary" onclick="detalles(`+ data[i].id + `)"  title="Ver Detalles" type="">Ver detalles
+               	    	</button>
+						<button class="btn btn-primary" onclick="editar(`+ data[i].id + `)" title="Editar" type="">Editar
                	    	</button>`;
 					}
 
@@ -107,7 +109,77 @@ function eliminar(id){
 }
 
 function editar(id) {
+	$.ajax({
+		url: SITE_URL + '/Home/DetallesPersona',
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
 
+			LoadingOn("Espere...");
+		},
+		error: function (error) {
+			//console.log(error);
+			MsgAlerta("Error!", error, 3000, "error");
+			LoadingOff();
+		},
+		success: function (data) {
+			//console.log(data);
+			LoadingOff();
+
+			if (data != "") {
+
+				$("#ENombre").val(data[0].Nombre);
+				$("#EApellidoP").val(data[0].ApellidoP);
+				$("#EApellidoM").val(data[0].ApellidoM);
+				$("#EDireccion").val(data[0].Direccion);
+				$("#ETelefono").val(data[0].Telefono);
+
+				$('#EditarPersona').addClass('is-active');
+
+			}
+		}
+
+	});
+}
+
+function Editarpersona() {
+	let dato = {};
+
+	dato.Id;
+	dato.Nombre = $("#ENombre").val();
+	dato.ApellidoP = $("#EApellidoP").val();
+	dato.ApellidoM = $("#EApellidoM").val();
+	dato.Direccion = $("#EDireccion").val();
+	dato.Telefono = $("#ETelefono").val();
+
+	EPersona(dato);
+
+}
+
+function EPersona(dato) {
+	$.ajax({
+		url: SITE_URL + '/Home/EditarPersona',
+		type: 'POST',
+		contentType: "application/x-www-form-urlencoded",
+		data: dato,
+		dataType: 'JSON',
+		beforeSend: function () {
+
+			LoadingOn("Espere...");
+		},
+		success: function (data) {
+			LoadingOff();
+
+			if (data) {
+				MsgAlerta("REGISTRO EDITADO");
+				$('#EditarPersona').removeClass('is-active');
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL EDITAR REGISTRO");
+			}
+		}
+	});
 }
 
 function guardarp() {

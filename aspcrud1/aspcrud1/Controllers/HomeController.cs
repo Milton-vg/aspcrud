@@ -56,5 +56,13 @@ namespace aspcrud1.Controllers
             var x = Persona.GuardarP(newPersona);
             return Json(x);
         }
+
+        public JsonResult EditarPersona(mPersonas newPersona)
+        {
+
+            mPersonas Persona = new mPersonas();
+            var x = Persona.EditarP(newPersona);
+            return Json(x);
+        }
     }
 }

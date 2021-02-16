@@ -95,3 +95,56 @@
         </footer>
     </div>
 </div>
+
+
+<div class="modal" id="EditarPersona">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">EDITAR PERSONA</p>
+            <button class="delete" aria-label="close" onclick="$('#EditarPersona').removeClass('is-active');"></button>
+        </header>
+        <section class="modal-card-body">
+            <form>
+                <!--form-->
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="Nombre" id="ENombre">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Apellido Paterno</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="ApellidoP" id="EApellidoP">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Apellido Materno</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="ApellidoM" id="EApellidoM">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Direccion</label>
+                    <div class="control">
+                        <input class="input" type="text" required placeholder="" name="Direccion" id="EDireccion">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Telefono</label>
+                    <div class="control">
+                        <input class="input" type="number" required placeholder="" name="Telefono" id="ETelefono">
+                    </div>
+                </div>
+            </form>
+
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" onclick="Editarpersona()">Guardar</button>
+
+            <button class="button" onclick="$('#EditarPersona').removeClass('is-active');">Cancelar</button>
+        </footer>
+    </div>
+</div>

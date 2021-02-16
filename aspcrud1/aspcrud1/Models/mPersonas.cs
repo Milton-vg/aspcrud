@@ -94,6 +94,14 @@ namespace aspcrud1.Models
             return true;
         }
 
+        public bool EditarP(mPersonas newPersona)
+        {
+            miSqlClass.conectar();
+
+            miSqlClass.SqlConsulta("UPDATE Personas_Milton SET Nombres ='"+newPersona.Nombre+"', ApellidoP ='"+newPersona.ApellidoP+"', ApellidoM ='" + newPersona.ApellidoM + "', Direccion='" + newPersona.Direccion +"', Telefono ='"+newPersona.Telefono+"' WHERE Id ='"+newPersona.Id+"'");
+
+            return true;
+        }
 
         public string insertPersona(mPersonas newPersona)
         {
