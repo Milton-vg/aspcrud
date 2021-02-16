@@ -62,7 +62,7 @@ namespace aspcrud1.Models
             dtTemp.CaseSensitive = true;
             miSqlClass.conectar();
 
-            var a = miSqlClass.SqlConsulta("SELECT Id, CONCAT(Nombres, ' ',ApellidoP,' ',ApellidoM) Nombre, Telefono, Direccion, Estatus" +
+            var a = miSqlClass.SqlConsulta("SELECT Id,  Nombres, ApellidoP, ApellidoM, Telefono, Direccion, Estatus" +
                            "  FROM Personas_Milton" +
                            " WHERE Nombres LIKE '%" + Busqueda + "%'" +
                            " OR ApellidoP LIKE '%" + Busqueda + "%'" +
@@ -74,7 +74,9 @@ namespace aspcrud1.Models
                        select new mPersonas
                        {
                            Id = Convert.ToInt32(rw["Id"]),
-                           Nombre = Convert.ToString(rw["Nombre"]),
+                           Nombre = Convert.ToString(rw["Nombres"]),
+                           ApellidoP = Convert.ToString(rw["ApellidoP"]),
+                           ApellidoM = Convert.ToString(rw["ApellidoM"]),
                            Telefono = Convert.ToString(rw["Telefono"]),
                            Direccion = Convert.ToString(rw["Direccion"]),
                            Estatus = Convert.ToInt32(rw["Estatus"])
