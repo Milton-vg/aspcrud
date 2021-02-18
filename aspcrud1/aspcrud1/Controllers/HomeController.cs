@@ -40,11 +40,11 @@ namespace aspcrud1.Controllers
             return Json(x);
         }
 
-        public JsonResult DetallesPersona(string id)
+        public JsonResult DetallesPersona(int Id)
         {
             mPersonas Persona = new mPersonas();
 
-            var x = Persona.obtenerPersonasBusqueda(id);
+            var x = Persona.PersonasBusqueda(Id);
             return Json(x);
 
         }
@@ -62,6 +62,22 @@ namespace aspcrud1.Controllers
 
             mPersonas Persona = new mPersonas();
             var x = Persona.EditarP(newPersona);
+            return Json(x);
+        }
+
+        public JsonResult EliminarPersona(int Id)
+        {
+
+            mPersonas Persona = new mPersonas();
+            var x = Persona.CambiarStatus(Id);
+            return Json(x);
+        }
+
+        public JsonResult RecuperarPersona(int Id)
+        {
+
+            mPersonas Persona = new mPersonas();
+            var x = Persona.RPersona(Id);
             return Json(x);
         }
     }

@@ -46,14 +46,17 @@ function loadData(){
 					TablaPersonas += '<td>';
 					if (data[i].Estatus == 1) {
 						TablaPersonas += `
-			   			<button class="btn btn-danger" onclick="eliminar(`+ data[i].id + `)" title="Eliminar" type="">
+			   			<button class="btn btn-danger" onclick="eliminar(`+ data[i].Id + `)" title="Eliminar" type="">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 			   			</button>
-			   			<button class="btn btn-primary" onclick="detalles(`+ data[i].id + `)"  title="Ver Detalles" type="">Ver detalles
+			   			<button class="btn btn-primary" onclick="detalles(`+ data[i].Id + `)"  title="Ver Detalles" type="">Ver detalles
                	    	</button>
-						<button class="btn btn-primary" onclick="editar(`+ data[i].id + `)" title="Editar" type="">Editar
+						<button class="btn btn-primary" onclick="editar(`+ data[i].Id + `)" title="Editar" type="">Editar
                	    	</button>`;
-					}
+					} else {
+						TablaPersonas +=  `<button class="btn btn-danger" onclick="recuperar(`+ data[i].Id + `)" title="Eliminar" type="">
+							<i class="fa fa-check" aria-hidden="true"></i>`;
+                    }
 
 				}
 
@@ -65,9 +68,10 @@ function loadData(){
 		}
 	});
 
+
 }
 
-function detalles(id){
+function detalles(id) {
 	$.ajax({
 		url: SITE_URL + '/Home/DetallesPersona',
 		type: 'POST',
@@ -104,8 +108,56 @@ function detalles(id){
 	
 }
 
-function eliminar(id){
+function eliminar(id) {
+	$.ajax({
+		url: SITE_URL + '/Home/EliminarPersona',
+		contentType: "application/x-www-form-urlencoded",
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
 
+			LoadingOn("Espere...");
+
+		},
+		success: function (data) {
+
+			if (data) {
+				console.log(data);
+				LoadingOff();
+				MsgAlerta("REGISTRO ELIMINADO");
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL ELIMINAR");
+			}
+		}
+	});
+}
+
+function recuperar(id) {
+	$.ajax({
+		url: SITE_URL + '/Home/RecuperarPersona',
+		contentType: "application/x-www-form-urlencoded",
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
+
+			LoadingOn("Espere...");
+
+		},
+		success: function (data) {
+
+			if (data) {
+				console.log(data);
+				LoadingOff();
+				MsgAlerta("REGISTRO RECUPERADO");
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL RECUPERER REGISTRO");
+			}
+		}
+	});
 }
 
 function editar(id) {
@@ -145,23 +197,23 @@ function editar(id) {
 
 function Editarpersona() {
 	let dato = {};
-
-	dato.Id;
 	dato.Nombre = $("#ENombre").val();
 	dato.ApellidoP = $("#EApellidoP").val();
 	dato.ApellidoM = $("#EApellidoM").val();
 	dato.Direccion = $("#EDireccion").val();
 	dato.Telefono = $("#ETelefono").val();
 
+	//console.log(dato);
 	EPersona(dato);
-
+	
 }
 
 function EPersona(dato) {
 	$.ajax({
-		url: SITE_URL + '/Home/EditarPersona',
+		
 		type: 'POST',
 		contentType: "application/x-www-form-urlencoded",
+		url: SITE_URL + '/Home/EditarPersona',
 		data: dato,
 		dataType: 'JSON',
 		beforeSend: function () {
@@ -169,9 +221,10 @@ function EPersona(dato) {
 			LoadingOn("Espere...");
 		},
 		success: function (data) {
-			LoadingOff();
-
+			
+			console.log(data);
 			if (data) {
+				LoadingOff();
 				MsgAlerta("REGISTRO EDITADO");
 				$('#EditarPersona').removeClass('is-active');
 				loadData();
@@ -193,7 +246,7 @@ function guardarp() {
 	dato.Telefono = $("#Telefono").val();
 
 	NPersona(dato);
-			
+
 }
 
 function NPersona(dato) {
@@ -209,7 +262,7 @@ function NPersona(dato) {
 		},
 		success: function (data) {
 			LoadingOff();
-
+			console.log(data);
 			if (data) {
 				MsgAlerta("Guardado");
 				$('#addUser').removeClass('is-active');
@@ -221,9 +274,7 @@ function NPersona(dato) {
 	});
 }
 
-function limpiarFormulario() {
-	document.getElementById("miForm").reset();
-}
+
 
 $(document).on('change', '#select_status', function(e){
 	loadData();

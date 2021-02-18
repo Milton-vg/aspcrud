@@ -84,11 +84,36 @@ namespace aspcrud1.Models
             return miLista;
         }
 
+        public List<mPersonas> PersonasBusqueda(int Id)
+        { //obtiee todas las personas de la bd
+
+            DataTable dtTemp = new DataTable();
+            dtTemp.CaseSensitive = true;
+            miSqlClass.conectar();
+
+            var a = miSqlClass.SqlConsulta("SELECT * FROM Personas_Milton WHERE Id ="+Id, ref dtTemp);
+
+            List<mPersonas> miLista = new List<mPersonas>();
+
+            miLista = (from rw in dtTemp.AsEnumerable()
+                       select new mPersonas
+                       {
+                           Id = Convert.ToInt32(rw["Id"]),
+                           Nombre = Convert.ToString(rw["Nombres"]),
+                           ApellidoP = Convert.ToString(rw["ApellidoP"]),
+                           ApellidoM = Convert.ToString(rw["ApellidoM"]),
+                           Telefono = Convert.ToString(rw["Telefono"]),
+                           Direccion = Convert.ToString(rw["Direccion"]),
+                           Estatus = Convert.ToInt32(rw["Estatus"])
+                       }).ToList();
+            return miLista;
+        }
+
         public bool GuardarP(mPersonas newPersona)
         {
             miSqlClass.conectar();
 
-            miSqlClass.SqlConsulta("INSER INTO Personas_Milton (Nombres, ApellidoP, ApellidoM, Direccion, Telefono) VALUES ('" + newPersona.Nombre + "','" + newPersona.ApellidoP + "','" + newPersona.ApellidoM+
+            miSqlClass.SqlConsulta("INSERT INTO Personas_Milton (Nombres, ApellidoP, ApellidoM, Direccion, Telefono) VALUES ('" + newPersona.Nombre + "','" + newPersona.ApellidoP + "','" + newPersona.ApellidoM+
                 "','" + newPersona.Direccion + "','" + newPersona.Telefono + "')");
 
             return true;
@@ -98,7 +123,25 @@ namespace aspcrud1.Models
         {
             miSqlClass.conectar();
 
-            miSqlClass.SqlConsulta("UPDATE Personas_Milton SET Nombres ='"+newPersona.Nombre+"', ApellidoP ='"+newPersona.ApellidoP+"', ApellidoM ='" + newPersona.ApellidoM + "', Direccion='" + newPersona.Direccion +"', Telefono ='"+newPersona.Telefono+"' WHERE Id ='"+newPersona.Id+"'");
+            miSqlClass.SqlConsulta(" UPDATE Personas_Milton SET Nombres ='"+ newPersona.Nombre +"', ApellidoP ='"+ newPersona.ApellidoP +"', ApellidoM ='" + newPersona.ApellidoM + "', Direccion='" + newPersona.Direccion +"', Telefono ='"+ newPersona.Telefono +"' WHERE Id ='"+ newPersona.Id +"'");
+
+            return true;
+        }
+
+        public bool CambiarStatus(int Id)
+        {
+            miSqlClass.conectar();
+
+            miSqlClass.SqlConsulta(" UPDATE Personas_Milton SET Estatus = '0' WHERE Id ='" + Id + "'" );
+
+            return true;
+        }
+
+        public bool RPersona(int Id)
+        {
+            miSqlClass.conectar();
+
+            miSqlClass.SqlConsulta(" UPDATE Personas_Milton SET Estatus = '1' WHERE Id ='" + Id + "'");
 
             return true;
         }
