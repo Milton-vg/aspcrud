@@ -7,22 +7,8 @@ using System.Web;
 
 namespace aspcrud1.Models
 {
-
-    public class datos
+    public class mPersonas
     {
-        public int IdJson { get; set; }
-        public string DataJson { get; set; }
-        public string Nombre { get; set; }
-        public string ApellidoP { get; set; }
-        public string ApellidoM { get; set; }
-        public string Direccion { get; set; }
-        public string Telefono { get; set; }
-
-    }
-
-        public class mPersonas
-    {
-
         SqlClass miSqlClass = new SqlClass();
 
         public int Id { get; set; }
@@ -122,7 +108,7 @@ namespace aspcrud1.Models
                        }).ToList();
             return miLista;
         }
-/*
+
         public bool GuardarP(mPersonas newPersona)
         {
             miSqlClass.conectar();
@@ -159,7 +145,7 @@ namespace aspcrud1.Models
 
             return true;
         }
-*/
+
         public string insertPersona(mPersonas newPersona)
         {
             

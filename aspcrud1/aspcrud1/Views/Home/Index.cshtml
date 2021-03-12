@@ -10,7 +10,7 @@
         <hr>
     </div>
     <div class="row" style="margin-bottom: 20px">
-        <button class="btn btn-primary col-xs-4" id="btn_new" onclick="nuevap();">NUEVA PERSONA</button>
+        <button class="btn btn-primary col-xs-4" id="btn_new" onclick="$('#addUser').addClass('is-active');">NUEVA PERSONA</button>
         <div class="col-xs-4 form-group">
             <select name="" id="select_status" class="form-control">
                 <option value="2">TODOS</option>
@@ -48,7 +48,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title" id="lbltitulo">NUEVA PERSONA</p>
+            <p class="modal-card-title">NUEVA PERSONA</p>
             <button class="delete" aria-label="close" onclick="$('#addUser').removeClass('is-active');"></button>
         </header>
         <section class="modal-card-body">
@@ -57,41 +57,41 @@
                 <div class="field">
                     <label class="label">Nombre</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="Nombre1" id="Nombre">
+                        <input class="input" type="text" required placeholder="" name="Nombre" id="Nombre">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Apellido Paterno</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="ApellidoP1" id="ApellidoP">
+                        <input class="input" type="text" required placeholder="" name="ApellidoP" id="ApellidoP">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Apellido Materno</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="ApellidoM1" id="ApellidoM">
+                        <input class="input" type="text" required placeholder="" name="ApellidoM" id="ApellidoM">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Direccion</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="Direccion1" id="Direccion">
+                        <input class="input" type="text" required placeholder="" name="Direccion" id="Direccion">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Telefono</label>
                     <div class="control">
-                        <input class="input" type="number" required placeholder="" name="Telefono1" id="Telefono">
+                        <input class="input" type="number" required placeholder="" name="Telefono" id="Telefono">
                     </div>
                 </div>
             </form>
 
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success" id="btnguardar" onclick="btnguardar()">Guardar</button>
+            <button class="button is-success" onclick="guardarp()">Guardar</button>
 
-            <button class="button" id="btnguardar" onclick="$('#addUser').removeClass('is-active');">Cancelar</button>
+            <button class="button" onclick="$('#addUser').removeClass('is-active');">Cancelar</button>
         </footer>
     </div>
 </div>
@@ -101,41 +101,41 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title" >EDITAR PERSONA</p>
+            <p class="modal-card-title">EDITAR PERSONA</p>
             <button class="delete" aria-label="close" onclick="$('#EditarPersona').removeClass('is-active');"></button>
         </header>
         <section class="modal-card-body">
             <form>
-                <!--form-->               
+                <!--form-->
                 <div class="field">
                     <label class="label">Nombre</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="Nombre" id="ENombre">
+                        <input class="input" type="text" required placeholder="" name="ENombre" id="ENombre">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Apellido Paterno</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="ApellidoP" id="EApellidoP">
+                        <input class="input" type="text" required placeholder="" name="EApellidoP" id="EApellidoP">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Apellido Materno</label>
                     <div class="control">
-                        <input class="input" type="" required placeholder="" name="ApellidoM" id="EApellidoM">
+                        <input class="input" type="text" required placeholder="" name="EApellidoM" id="EApellidoM">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Direccion</label>
                     <div class="control">
-                        <input class="input" type="text" required placeholder="" name="Direccion" id="EDireccion">
+                        <input class="input" type="text" required placeholder="" name="EDireccion" id="EDireccion">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Telefono</label>
                     <div class="control">
-                        <input class="input" type="number" required placeholder="" name="Telefono" id="ETelefono">
+                        <input class="input" type="number" required placeholder="" name="ETelefono" id="ETelefono">
                     </div>
                 </div>
             </form>
