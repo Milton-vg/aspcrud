@@ -1,12 +1,17 @@
+
+
 $(function () {
 
 	loadData();
 
 });
 
+
 var error = "Ocurrió un error insesperado en el sitio, por favor intentelo mas tarde o pongase en contacto con su administrador.";
 var success = "La accion se ralizó con exito";
 var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
+
+var aux = 0;
 
 function loadData(){
 
@@ -71,6 +76,24 @@ function loadData(){
 
 }
 
+function LimpiarFormulario(){
+	document.getElementById("Nombre").value = "";
+	document.getElementById("ApellidoP").value = "";
+	document.getElementById("ApellidoM").value = "";
+	document.getElementById("Direccion").value = "";
+	document.getElementById("Telefono").value = "";
+
+	document.getElementById('lbltitulo').innerHTML = "NUEVA PERSONA";
+}
+
+function nuevap() {
+
+	LimpiarFormulario();
+	$('#addUser').addClass('is-active');
+}
+
+
+
 function detalles(id) {
 	$.ajax({
 		url: SITE_URL + '/Home/DetallesPersona',
@@ -87,11 +110,12 @@ function detalles(id) {
 			LoadingOff();
 		},
 		success: function (data) {
-			//console.log(data);
+			
 			LoadingOff();
+			LimpiarFormulario();
 
-			if (data != "") {
-
+			if (data.length > 0) {
+				console.log(data);
 				$("#Nombre").val(data[0].Nombre);
 				$("#ApellidoP").val(data[0].ApellidoP);
 				$("#ApellidoM").val(data[0].ApellidoM);
@@ -99,66 +123,16 @@ function detalles(id) {
 				$("#Telefono").val(data[0].Telefono);
 				
 				$('#addUser').addClass('is-active');
+				document.getElementById('lbltitulo').innerHTML = "DETALLES PERSONA";
 				
 			}
 		}
-
+		
 	});
-
 	
 }
 
-function eliminar(id) {
-	$.ajax({
-		url: SITE_URL + '/Home/EliminarPersona',
-		contentType: "application/x-www-form-urlencoded",
-		type: 'POST',
-		data: { Id: id },
-		dataType: 'JSON',
-		beforeSend: function () {
 
-			LoadingOn("Espere...");
-
-		},
-		success: function (data) {
-
-			if (data) {
-				console.log(data);
-				LoadingOff();
-				MsgAlerta("REGISTRO ELIMINADO");
-				loadData();
-			} else {
-				MsgAlerta("ERROR AL ELIMINAR");
-			}
-		}
-	});
-}
-
-function recuperar(id) {
-	$.ajax({
-		url: SITE_URL + '/Home/RecuperarPersona',
-		contentType: "application/x-www-form-urlencoded",
-		type: 'POST',
-		data: { Id: id },
-		dataType: 'JSON',
-		beforeSend: function () {
-
-			LoadingOn("Espere...");
-
-		},
-		success: function (data) {
-
-			if (data) {
-				console.log(data);
-				LoadingOff();
-				MsgAlerta("REGISTRO RECUPERADO");
-				loadData();
-			} else {
-				MsgAlerta("ERROR AL RECUPERER REGISTRO");
-			}
-		}
-	});
-}
 
 function editar(id) {
 	$.ajax({
@@ -178,14 +152,13 @@ function editar(id) {
 		success: function (data) {
 			//console.log(data);
 			LoadingOff();
-
-			if (data != "") {
-
-				$("#ENombre").val(data[0].Nombre);
-				$("#EApellidoP").val(data[0].ApellidoP);
-				$("#EApellidoM").val(data[0].ApellidoM);
-				$("#EDireccion").val(data[0].Direccion);
-				$("#ETelefono").val(data[0].Telefono);
+			LimpiarFormulario();
+			if (data.length > 0) {
+				$("#ENombre").value = (data[0].Nombre);
+				$("#EApellidoP").value = (data[0].ApellidoP);
+				$("#EApellidoM").value = (data[0].ApellidoM);
+				$("#EDireccion").value = (data[0].Direccion);
+				$("#ETelefono").value = (data[0].Telefono);
 
 				$('#EditarPersona').addClass('is-active');
 
@@ -197,14 +170,16 @@ function editar(id) {
 
 function Editarpersona() {
 	let dato = {};
-	dato.Nombre = $("#ENombre").val();
-	dato.ApellidoP = $("#EApellidoP").val();
-	dato.ApellidoM = $("#EApellidoM").val();
-	dato.Direccion = $("#EDireccion").val();
-	dato.Telefono = $("#ETelefono").val();
+		dato.Id = $("#Eid").val();
+		dato.Nombre = $("#ENombre").val();
+		dato.ApellidoP = $("#EApellidoP").val();
+		dato.ApellidoM = $("#EApellidoM").val();
+		dato.Direccion = $("#EDireccion").val();
+		dato.Telefono = $("#ETelefono").val();
+		
+		//console.log(dato);
+		EPersona(dato);
 
-	//console.log(dato);
-	EPersona(dato);
 	
 }
 
@@ -235,7 +210,10 @@ function EPersona(dato) {
 	});
 }
 
-function guardarp() {
+
+
+
+function btnguardar() {
 
 	let dato = {};
 
@@ -245,11 +223,13 @@ function guardarp() {
 	dato.Direccion = $("#Direccion").val();
 	dato.Telefono = $("#Telefono").val();
 
-	NPersona(dato);
-
+	GuardarPersona(dato);
+	LimpiarFormulario();
+	//console.log(Validarform());
+	$('#addUser').removeClass('is-active');
 }
 
-function NPersona(dato) {
+function GuardarPersona(dato) {
 	$.ajax({
 		url: SITE_URL + '/Home/GuardarPersona',
 		type: 'POST',
@@ -262,10 +242,10 @@ function NPersona(dato) {
 		},
 		success: function (data) {
 			LoadingOff();
-			console.log(data);
-			if (data) {
-				MsgAlerta("Guardado");
-				$('#addUser').removeClass('is-active');
+			//console.log(data);
+			if (data.length > 0) {
+				MsgAlerta("REGISTRO GUARDADO");
+				
 				loadData();
 			} else {
 				MsgAlerta("ERROR AL INSERTAR REGISTRO");
@@ -273,6 +253,61 @@ function NPersona(dato) {
 		}
 	});
 }
+
+
+
+function eliminar(id) {
+	$.ajax({
+		url: SITE_URL + '/Home/EliminarPersona',
+		contentType: "application/x-www-form-urlencoded",
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
+
+			LoadingOn("Espere...");
+
+		},
+		success: function (data) {
+
+			if (data.length > 0) {
+				//console.log(data);
+				LoadingOff();
+				MsgAlerta("REGISTRO ELIMINADO");
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL ELIMINAR");
+			}
+		}
+	});
+}
+
+function recuperar(id) {
+	$.ajax({
+		url: SITE_URL + '/Home/EliminarPersona',
+		contentType: "application/x-www-form-urlencoded",
+		type: 'POST',
+		data: { Id: id },
+		dataType: 'JSON',
+		beforeSend: function () {
+
+			LoadingOn("Espere...");
+
+		},
+		success: function (data) {
+
+			if (data.length > 0) {
+				//console.log(data);
+				LoadingOff();
+				MsgAlerta("REGISTRO RECUPERADO");
+				loadData();
+			} else {
+				MsgAlerta("ERROR AL RECUPERAR REGISTRO");
+			}
+		}
+	});
+}
+
 
 
 
